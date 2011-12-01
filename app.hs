@@ -3,6 +3,7 @@
 import Hack2
 import Hack2.Handler.SnapServer (run)
 import Hack2.Contrib.Response (set_body_bytestring)
+import Hack2.Contrib.Request (input_bytestring, inputs)
 import Hack2.Contrib.Utils (empty_app, use)
 import Hack2.Contrib.Middleware.Static (static)
 import Hack2.Contrib.Middleware.File (file)
@@ -24,7 +25,7 @@ app :: Application
 app env = do
     let matched = route - env.pathInfo
     use [ logPath
-        , static (Just "./public") ["/test.txt"]
+        , static (Just "./public") ["/test.txt", "/style.css"]
         ] matched env
 
 route :: B.ByteString -> Application
@@ -48,8 +49,11 @@ sendFile path env = file Nothing def (env { pathInfo = path })
 
 directory :: Application
 directory env = do 
+    body <- env.inputs -- or input_bytestring 
+    let (Just csvData) = body.lookup "data"
+    -- I want to issue an error if csvData is Nothing
     let response = Response 200 [ ("Content-Type", "text/html") ] def
-    return - set_body_bytestring "<h1>Hi</h1>" response
+    return - set_body_bytestring (L.fromChunks [csvData]) response
 
 -- hack2         - https://github.com/nfjinjing/hack2
 -- hack2-contrib - https://github.com/nfjinjing/hack2-contrib/tree/master/src/Hack2/Contrib

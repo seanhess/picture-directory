@@ -1,0 +1,14 @@
+
+body.create {
+    padding: 20px;
+}
+
+.create textarea {
+    width: 90%;
+    height: 300px;
+    display:block;
+}
+
+.create input {
+    margin-top: 10px;
+}

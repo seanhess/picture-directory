@@ -1,6 +1,6 @@
 
 ### TODO ###
-[ ] Create a form to upload the csv
+[ ] Create a form to upload the csv - read body data
 [ ] Parse a sample CSV into data
 
 
