@@ -1,4 +1,8 @@
 
+### TODO ###
+[ ] Create a form to upload the csv
+[ ] Parse a sample CSV into data
+
 
 
 ### Notes / Scratch ###
