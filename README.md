@@ -19,3 +19,10 @@ Env {requestMethod = GET, scriptName = "", pathInfo = "/favicon.ico", queryStrin
 http://www.reddit.com/r/haskell/comments/mcjoz/ann_happstacklite_a_simpler_friendlier_version_of/
 
 http://happstack.com/docs/happstack-lite/happstack-lite.html
+
+
+http://happstack.com/docs/6.0.0/happstack-lite/Happstack-Lite.html
+
+
+-- uses blaze
+http://jaspervdj.be/blaze/tutorial.html
