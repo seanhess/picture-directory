@@ -49,11 +49,14 @@ sendFile path env = file Nothing def (env { pathInfo = path })
 
 directory :: Application
 directory env = do 
-    body <- env.inputs -- or input_bytestring 
-    let (Just csvData) = body.lookup "data"
+    -- body <- env.inputs -- or input_bytestring 
+    -- let (Just csvData) = body.lookup "data"
     -- I want to issue an error if csvData is Nothing
+
+    body <- env.input_bytestring
+    print "HI"
     let response = Response 200 [ ("Content-Type", "text/html") ] def
-    return - set_body_bytestring (L.fromChunks [csvData]) response
+    return - set_body_bytestring "Directory" response
 
 -- hack2         - https://github.com/nfjinjing/hack2
 -- hack2-contrib - https://github.com/nfjinjing/hack2-contrib/tree/master/src/Hack2/Contrib
