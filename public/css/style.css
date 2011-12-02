@@ -12,3 +12,11 @@ body.create {
 .create input {
     margin-top: 10px;
 }
+
+.person {
+    float :left;
+    width: 200px;
+    padding: 5px;
+    margin: 5px;
+    border: solid 1px black;
+}

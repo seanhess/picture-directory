@@ -2,40 +2,54 @@
 
 module Directory.Views where
 
-import Text.Blaze.Html5 
+import Control.Monad (forM)
+
+import Text.Blaze.Html5 hiding (map, address) 
 import Text.Blaze.Html5.Attributes hiding (title, form)
 
 import Prelude hiding (head, div)
+
+import Directory.Data
 
 mainForm :: Html
 mainForm = docTypeHtml $ do
     head $ do
         title "Directory Creator"
-        link ! href "/style.css" ! media "screen" ! rel "stylesheet" ! type_ "text/css"
+        link ! href "/css/style.css" ! media "screen" ! rel "stylesheet" ! type_ "text/css"
     body $ do
-        h1 "Paste CSV Below"
-        form ! action "/directory" ! method "POST" ! enctype "multipart/mime" $ do
+        h1 "Paste TSV Below"
+        form ! action "/" ! method "POST" ! enctype "multipart/form-data" $ do
             div $ input ! type_ "file" ! name "file"
             div $ input ! type_ "submit"
         
+
+
+directory :: [Person] -> Html
+directory people = docTypeHtml $ do
+    head $ do
+        title "Directory"
+        link ! href "/css/style.css" ! media "screen" ! rel "stylesheet" ! type_ "text/css"
+    body $ do
+        h1 "Directory"
+        -- p "H"
+        -- renderPerson $ people !! 0
         
+        -- renderPerson $ head people
+        -- div $ toHtml $ show $ length people
+        foldr (>>) "" $ map renderPerson people
         
-        
--- 
--- 
--- 
--- <!DOCTYPE html>
--- <html>
--- <head>
---     <link href="/style.css" media="screen" rel="stylesheet" type="text/css" />
--- </head>
--- <body class="create">
--- 
--- <h1>Paste CSV Below</h1>
--- <form action="/directory" method="POST">
---     <textarea name="data"></textarea>
---     <input type="submit">
--- </form>
--- 
--- </body>
--- </html>
+
+renderPerson :: Person -> Html 
+renderPerson person = do
+    div ! class_ "person" $ do
+        div ! class_ "name" $ b $ toHtml $ fullName person
+        div ! class_ "birthday" $ toHtml $ birthday person
+        div ! class_ "email" $ toHtml $ email person
+        div ! class_ "cell" $ toHtml $ cell person
+        div ! class_ "home" $ toHtml $ home person
+        div ! class_ "address" $ toHtml $ address person
+
+
+woot :: String
+woot = "woot"
+

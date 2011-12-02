@@ -5,11 +5,16 @@
 module Main where
 
 import Control.Applicative ((<$>), optional)
+import Control.Monad (liftM)
+import Control.Monad.IO.Class (liftIO)
+
 import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import Data.Text.Lazy (unpack)
 import Happstack.Lite
 -- import qualified Happstack.Server
+
+import Directory.Data
 
 import qualified Directory.Views as View
 
@@ -23,17 +28,29 @@ main = serve Nothing app
 
 app :: ServerPart Response
 app = msum
-    [ nullDir >>     form
+    [ method GET  >> nullDir >> form
+    , method POST >> nullDir >> create
+    , method GET  >> dir "hello" hello
     , serveDirectory DisableBrowsing [] "./public"
-    , dir "hello"    hello
     ]
 
 
 form :: ServerPart Response
 form = ok $ toResponse $ View.mainForm
 
+
+create :: ServerPart Response
+create = do
+    (tmpFile, uploadName, contentType) <- lookFile "file"
+    contents <- liftIO $ readFile tmpFile
+    let people = parsePeople contents
+    -- liftIO $ mapM_ print people
+    ok $ toResponse $ View.directory people
+
+
 -- directory :: ServerPart Response
 -- directory = do
+--     ok $ toResponse 
 --     body <- env.inputs -- or input_bytestring 
 --     let (Just csvData) = body.lookup "data"
 --     -- I want to issue an error if csvData is Nothing
