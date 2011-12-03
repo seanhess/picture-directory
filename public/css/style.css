@@ -16,7 +16,14 @@ body.create {
 .person {
     float :left;
     width: 200px;
+    height: 375px;
     padding: 5px;
     margin: 5px;
-    border: solid 1px black;
+    overflow: hidden;
+    text-align: center;
+}
+
+.person img {
+    width: 190px;
+    margin: 5px;
 }

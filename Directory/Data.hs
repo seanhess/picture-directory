@@ -11,10 +11,8 @@ data Person = Person { fullName :: String
                      , cell :: String
                      , home :: String
                      , address :: String
+                     , image :: String
                      } deriving (Show, Eq)
-
-emptyPerson :: Person
-emptyPerson = Person { fullName = "", birthday = "", email = "", cell = "", home = "", address = ""}
 
 parsePeople :: String -> [Person]
 parsePeople contents = map toPerson $ lines contents
@@ -27,7 +25,8 @@ makePerson parts = Person { fullName = parts `get` 0
                           , email = parts `get` 2
                           , cell = parts `get` 3
                           , home = parts `get` 4
-                          , address = parts `get` 5 }
+                          , address = parts `get` 5 
+                          , image = parts `get` 6}
 
 get :: [String] -> Int -> String
 get = atDef " "

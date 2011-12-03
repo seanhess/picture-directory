@@ -31,17 +31,13 @@ directory people = docTypeHtml $ do
         link ! href "/css/style.css" ! media "screen" ! rel "stylesheet" ! type_ "text/css"
     body $ do
         h1 "Directory"
-        -- p "H"
-        -- renderPerson $ people !! 0
-        
-        -- renderPerson $ head people
-        -- div $ toHtml $ show $ length people
         foldr (>>) "" $ map renderPerson people
         
 
 renderPerson :: Person -> Html 
 renderPerson person = do
     div ! class_ "person" $ do
+        div ! class_ "image" $ img ! src (toValue (image person))
         div ! class_ "name" $ b $ toHtml $ fullName person
         div ! class_ "birthday" $ toHtml $ birthday person
         div ! class_ "email" $ toHtml $ email person
