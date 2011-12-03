@@ -3,31 +3,24 @@
 module Directory.Data (Person(..), parsePeople) where
 
 import Data.List.Split (splitOn)
-import Safe (atDef)
+import Data.List (isPrefixOf)
 
-data Person = Person { fullName :: String
-                     , birthday :: String
-                     , email :: String
-                     , cell :: String
-                     , home :: String
-                     , address :: String
-                     , image :: String
+data Person = Person { imageUrl :: String       -- the first http:// field
+                     , fullName :: String       -- the first field
+                     , fields :: [String]
                      } deriving (Show, Eq)
 
 parsePeople :: String -> [Person]
 parsePeople contents = map toPerson $ lines contents
     where toPerson line = makePerson $ splitOn "\t" line
-         
 
 makePerson :: [String] -> Person
-makePerson parts = Person { fullName = parts `get` 0
-                          , birthday = parts `get` 1
-                          , email = parts `get` 2
-                          , cell = parts `get` 3
-                          , home = parts `get` 4
-                          , address = parts `get` 5 
-                          , image = parts `get` 6}
+makePerson fields = foldl parseField (Person "" "" []) fields 
 
-get :: [String] -> Int -> String
-get = atDef " "
+parseField :: Person -> String -> Person
+parseField p s
+    | "http://" `isPrefixOf` s = p { imageUrl = s }
+    | null $ fullName p = p { fullName = s }
+    | otherwise = p { fields = (fields p) ++ [s] }
+    
 

@@ -23,7 +23,6 @@ mainForm = docTypeHtml $ do
             div $ input ! type_ "submit"
         
 
-
 directory :: [Person] -> Html
 directory people = docTypeHtml $ do
     head $ do
@@ -31,21 +30,17 @@ directory people = docTypeHtml $ do
         link ! href "/css/style.css" ! media "screen" ! rel "stylesheet" ! type_ "text/css"
     body $ do
         h1 "Directory"
-        foldr (>>) "" $ map renderPerson people
+        each people renderPerson
         
-
 renderPerson :: Person -> Html 
 renderPerson person = do
     div ! class_ "person" $ do
-        div ! class_ "image" $ img ! src (toValue (image person))
+        div ! class_ "image" $ img ! src (toValue (imageUrl person))
         div ! class_ "name" $ b $ toHtml $ fullName person
-        div ! class_ "birthday" $ toHtml $ birthday person
-        div ! class_ "email" $ toHtml $ email person
-        div ! class_ "cell" $ toHtml $ cell person
-        div ! class_ "home" $ toHtml $ home person
-        div ! class_ "address" $ toHtml $ address person
+        each (fields person) $ \s -> do
+            div ! class_ "field" $ toHtml s
 
-
-woot :: String
-woot = "woot"
-
+-- does this function already exist? I couldn't seem to find it in blaze
+-- how do they recommend that you render lists?
+each :: [a] -> (a -> Html) -> Html
+each list f = foldr (>>) "" $ map f list
