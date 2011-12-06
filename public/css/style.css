@@ -1,4 +1,10 @@
 
+html, body {
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
+}
+
 body.create {
     padding: 20px;
 }
@@ -15,18 +21,25 @@ body.create {
 
 .person {
     float :left;
-    width: 160px;
-    height: 330px;
+    width: 110px; /* h:w = 1.9 */
+    height: 218px;
     overflow: hidden;
     text-align: center;
-    border: solid 1px black;
+/*    border: solid 1px black;*/
     margin: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.person .image {
+    width: 110px; /* h:w = 1.25 */
+    height: 137px;
+    overflow: hidden;
 }
 
 .person img {
-    width: 160px;
+    width: 110px;
 }
-
 
 .google input.url {
     width: 650px;

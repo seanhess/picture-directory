@@ -19,7 +19,7 @@ mainForm = docTypeHtml $ do
     body $ do
         h1 "Upload TSV Below"
         instructions
-        form ! action "/" ! method "POST" ! enctype "multipart/form-data" $ do
+        form ! action "/upload" ! method "POST" ! enctype "multipart/form-data" $ do
             div $ input ! type_ "file" ! name "file"
             div $ input ! type_ "submit"
         
@@ -37,7 +37,7 @@ directory people = docTypeHtml $ do
 renderPerson :: Person -> Html 
 renderPerson person = do
     div ! class_ "person" $ do
-        div ! class_ "image" $ img ! src (toValue (imageUrl person))
+        div ! class_ "image" $ img ! src (toValue ("http://src.sencha.io/250/" ++ (imageUrl person)))
         div ! class_ "name" $ b $ toHtml $ fullName person
         each (fields person) $ \s -> do
             div ! class_ "field" $ toHtml s
