@@ -11,6 +11,9 @@ h1 {
 
 @page {
     size: 5.83in 8.27in; /* A5 = 1/2 of A4 */
-/*    margin: 0.2in 0.2in 1in 1in;*/
-/*    margin: 27mm 16mm 27mm 16mm;*/
+    margin: 0in;
+}
+
+.page {
+    page-break-after: always;
 }

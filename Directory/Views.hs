@@ -10,6 +10,7 @@ import Text.Blaze.Html5.Attributes hiding (title, form)
 import Prelude hiding (head, div)
 
 import Directory.Data
+import Data.List.Split (splitEvery)
 
 mainForm :: Html
 mainForm = docTypeHtml $ do
@@ -32,7 +33,11 @@ directory people = docTypeHtml $ do
         link ! href "/css/print.css" ! media "print"  ! rel "stylesheet" ! type_ "text/css"
     body $ do
         h1 "Directory"
-        each people renderPerson
+        -- need to split them into pages of 9
+        div ! class_ "people" $ do
+            each pages $ \people -> do
+                div ! class_ "page" $ each people renderPerson
+    where pages = splitEvery 9 people
         
 renderPerson :: Person -> Html 
 renderPerson person = do
