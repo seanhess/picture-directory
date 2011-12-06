@@ -24,10 +24,12 @@ main = serve Nothing app
 
 app :: ServerPart Response
 app = msum
-    [ method GET  >> dir "upload" form
-    , method POST >> dir "upload" create
+    [ method GET  >> dir "upload"    form
+    , method POST >> dir "upload"    create
     , method GET  >> dir "directory" google
-    , method GET  >> dir "hello" hello
+    , method GET  >> dir "google"    googleForm
+    , method GET  >> dir "hello"     hello
+    , method GET  >> nullDir >>      root
     , serveDirectory DisableBrowsing [] "./public"
     ]
 
@@ -41,11 +43,17 @@ create = do
     let people = parsePeople contents
     ok $ toResponse $ View.directory people
 
+googleForm :: ServerPart Response
+googleForm = ok $ toResponse $ View.googleForm
+
 google :: ServerPart Response
 google = path $ \(docId :: String) -> do
     contents <- liftIO $ readGoogle docId
     let people = parsePeople contents
     ok $ toResponse $ View.directory people
+
+root :: ServerPart Response
+root = ok $ toResponse $ View.root
 
 hello :: ServerPart Response
 hello = ok $ toResponse "Hello"

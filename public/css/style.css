@@ -15,15 +15,14 @@ body.create {
 
 .person {
     float :left;
-    width: 200px;
-    height: 375px;
-    padding: 5px;
-    margin: 5px;
+    width: 160px;
+    height: 330px;
     overflow: hidden;
     text-align: center;
+    border: solid 1px black;
+    margin: 10px;
 }
 
 .person img {
-    width: 190px;
-    margin: 5px;
+    width: 160px;
 }

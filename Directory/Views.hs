@@ -27,7 +27,8 @@ directory :: [Person] -> Html
 directory people = docTypeHtml $ do
     head $ do
         title "Directory"
-        link ! href "/css/style.css" ! media "screen" ! rel "stylesheet" ! type_ "text/css"
+        link ! href "/css/style.css" ! rel "stylesheet" ! type_ "text/css"
+        link ! href "/css/print.css" ! media "print"  ! rel "stylesheet" ! type_ "text/css"
     body $ do
         h1 "Directory"
         each people renderPerson
@@ -39,6 +40,27 @@ renderPerson person = do
         div ! class_ "name" $ b $ toHtml $ fullName person
         each (fields person) $ \s -> do
             div ! class_ "field" $ toHtml s
+
+
+googleForm :: Html
+googleForm = docTypeHtml $ do
+    head $ do
+        title $ "Directory Creator (Google)"
+        script ! src "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" $ ""
+    body $ do
+        h1 "Enter Google Doc URL"
+        input ! class_ "text" ! type_ "text"
+        input ! class_ "submit" ! type_ "submit"
+
+
+root :: Html
+root = docTypeHtml $ do
+    head $ do
+        title $ "Directory Creator"
+    body $ do
+        h1 "Options"
+        div $ a ! href "/google" $ "Google Doc (Better)"
+        div $ a ! href "/upload" $ "Upload File"
 
 -- does this function already exist? I couldn't seem to find it in blaze
 -- how do they recommend that you render lists?
