@@ -26,3 +26,8 @@ body.create {
 .person img {
     width: 160px;
 }
+
+
+.google input.url {
+    width: 650px;
+}

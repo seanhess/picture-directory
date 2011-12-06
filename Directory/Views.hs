@@ -17,7 +17,8 @@ mainForm = docTypeHtml $ do
         title "Directory Creator"
         link ! href "/css/style.css" ! media "screen" ! rel "stylesheet" ! type_ "text/css"
     body $ do
-        h1 "Paste TSV Below"
+        h1 "Upload TSV Below"
+        instructions
         form ! action "/" ! method "POST" ! enctype "multipart/form-data" $ do
             div $ input ! type_ "file" ! name "file"
             div $ input ! type_ "submit"
@@ -47,10 +48,13 @@ googleForm = docTypeHtml $ do
     head $ do
         title $ "Directory Creator (Google)"
         script ! src "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" $ ""
-    body $ do
+        script ! src "/js/googleForm.js" $ ""
+        link ! href "/css/style.css" ! rel "stylesheet" ! type_ "text/css"
+    body ! class_ "google" $ do
         h1 "Enter Google Doc URL"
-        input ! class_ "text" ! type_ "text"
-        input ! class_ "submit" ! type_ "submit"
+        instructions
+        div $ input ! class_ "url" ! type_ "text" ! placeholder "https://docs.google.com/spreadsheet/pub?hl=en_US&hl=en_US&key=0Av8U7ClGoQIndDlvRXRSWm5oQmoxNldPVUZ4LWtiZHc&output=html"
+        div $ input ! class_ "submit" ! type_ "submit"
 
 
 root :: Html
@@ -61,6 +65,9 @@ root = docTypeHtml $ do
         h1 "Options"
         div $ a ! href "/google" $ "Google Doc (Better)"
         div $ a ! href "/upload" $ "Upload File"
+
+instructions :: Html
+instructions = p ! class_ "instructions" $ "The directory will print the fields of your document in order, except for the image url, which it will use for the image. For example: 'name', 'birthday', 'phone', 'email', 'url'. Don't put headers in the doc."
 
 -- does this function already exist? I couldn't seem to find it in blaze
 -- how do they recommend that you render lists?
