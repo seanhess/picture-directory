@@ -36,6 +36,11 @@ body.create {
     margin-bottom: 5px;
 }
 
+.person .field {
+    font-size: 10px;
+
+}
+
 .person .image {
     width: 130px; /* h:w = 1.25 */
     height: 139px;
