@@ -1,0 +1,32 @@
+Name:                gdocs-picture-directory
+Version:             0.1
+Synopsis:            Simple web application to print google spreadsheet as a directory
+Description:         Simple web application to print google spreadsheet as a directory
+Homepage:            http://seanhess.github.com
+Author:              Sean Hess
+Maintainer:          seanhess@gmail.com
+
+Category:            Application
+Build-type:          Simple
+
+Cabal-version:       >=1.2
+
+Library
+  Exposed-modules:    Botland
+  Build-depends:      base                      >= 4        && < 5
+                    , happstack-lite            >= 7
+                    , mongoDB                   >= 1.2
+
+                    , text
+                    , aeson
+                    , mtl 
+                    , bytestring 
+                    , MissingH  
+                    , wai-middleware-static
+                    , wai-middleware-headers
+                    , safe                 
+                    , system-uuid         
+                    , datetime           
+                    , either-unwrap     
+
+

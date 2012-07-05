@@ -2,4 +2,6 @@
 
 cd $(dirname $0)
 echo "Visit 'http://localhost:8000/ in your web browser"
+open "http://localhost:8000/google/"
 ./Main
+
